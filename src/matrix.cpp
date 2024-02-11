@@ -5,14 +5,14 @@
 template <typename T>
 Matrix<T>::Matrix(std::istream mat, std::istream sol, std::size_t cols,
                   std::size_t rows) {
-  m_data.reserve(rows);
+  m_rows.reserve(rows);
 
   for (std::string row; std::getline(mat, row);) {
-    m_data.push_back(Row<T>(row, cols));
+    m_rows.push_back(Row<T>(std::move(row), cols));
   }
 
   std::string s;
   for (size_t i; std::getline(sol, s); i++) {
-    m_data[i].set_sol(s);
+    m_rows[i].set_sol(std::move(s));
   }
 }

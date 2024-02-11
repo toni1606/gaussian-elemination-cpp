@@ -1,3 +1,4 @@
+#include "row.h"
 #include <sstream>
 #include <string>
 #include <vector>
@@ -13,5 +14,5 @@ public:
   ~Matrix();
 
 private:
-  std::vector<T> m_data;
+  std::vector<T> m_rows;
 };
