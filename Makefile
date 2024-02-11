@@ -22,7 +22,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -c $(SRCDIR)/$< -o $(OBJDIR)/$@
 
 run: all
-	$(BINDIR)/$(TARGET)
+	$(BINDIR)/$(TARGET) ./test_data/matrix_5_4.txt ./test_data/rhs_5.txt
 
 clean:
 	rm -rf $(BINDIR)/*
