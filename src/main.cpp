@@ -21,7 +21,9 @@ int main(int argc, char *argv[]) {
   }
 
   // Get Linker Error
-  Matrix<size_t> m(mat, sol);
+  Matrix<int32_t> m(mat, sol);
+
+  std::cout << m;
 
   return EXIT_SUCCESS;
 }
