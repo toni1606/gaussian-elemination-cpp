@@ -5,8 +5,14 @@
 #pragma once
 
 template <typename T> class Row {
+private:
+  std::vector<T> m_data;
+  T m_sol;
+  size_t m_pivot_index;
+  bool m_was_pivot;
+
 public:
-  Row(std::string row, size_t cols) : pivot_index(0), was_pivot(false) {
+  Row(std::string row, size_t cols) : m_pivot_index(0), m_was_pivot(false) {
     row.reserve(cols);
     std::stringstream data(row);
 
@@ -22,25 +28,31 @@ public:
   Row &operator=(const Row &) = default;
   ~Row() = default;
 
-  void set_sol(std::string sol) { this->sol = from_str(sol); }
-
-private:
-  std::vector<T> m_data;
-  T sol;
-  size_t pivot_index;
-  bool was_pivot;
-
-  T from_str(std::string s) {
-    std::stringstream ss(s);
-    T res;
-    ss >> res;
-    return res;
-  }
+  void set_sol(std::string sol) { this->m_sol = from_str(sol); }
 
   friend std::ostream &operator<<(std::ostream &os, Row const &row) {
     for (auto &elem : row.m_data) {
       os << elem << "\t";
     }
-    return os << "|\t" << row.sol;
+    return os << "|\t" << row.m_sol;
+  }
+
+  Row &operator+=(const Row &rhs) {
+    assert(m_data.size() == rhs.m_data.size());
+
+    for (size_t i = 0; i < m_data.size(); ++i)
+      m_data[i] += rhs.m_data[i];
+
+    m_sol += rhs.sol;
+  }
+
+  // TODO: Overload Mul and MulAssign
+
+private:
+  T from_str(std::string s) {
+    std::stringstream ss(s);
+    T res;
+    ss >> res;
+    return res;
   }
 };
