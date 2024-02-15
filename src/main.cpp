@@ -1,3 +1,5 @@
+#include "../headers/matrix.h"
+#include <fstream>
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -8,6 +10,18 @@ int main(int argc, char *argv[]) {
               << std::endl;
     return EXIT_FAILURE;
   }
+
+  std::ifstream mat(argv[1]);
+  std::ifstream sol(argv[2]);
+
+  if (!mat.is_open() || !sol.is_open()) {
+    std::cout << "Could not open files: " << argv[1] << " and " << argv[2]
+              << std::endl;
+    return EXIT_FAILURE;
+  }
+
+  // Get Linker Error
+  Matrix<size_t> m(mat, sol);
 
   return EXIT_SUCCESS;
 }

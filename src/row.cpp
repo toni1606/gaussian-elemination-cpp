@@ -13,3 +13,5 @@ Row<T>::Row(std::string row, size_t cols) : pivot_index(0), was_pivot(false) {
 template <typename T> void Row<T>::set_sol(std::string sol) {
   this->sol = T::parse(sol);
 }
+
+template <typename T> Row<T>::~Row() { delete m_data; }

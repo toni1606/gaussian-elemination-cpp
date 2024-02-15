@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+#pragma once
+
 template <typename T> class Row {
 public:
   Row(std::string row, size_t cols);
