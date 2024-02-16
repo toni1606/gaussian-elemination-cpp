@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -45,6 +46,23 @@ public:
       m_data[i] += rhs.m_data[i];
 
     m_sol += rhs.sol;
+
+    return *this;
+  }
+
+  Row &operator-=(const Row &rhs) {
+    assert(m_data.size() == rhs.m_data.size());
+    assert(rhs.m_was_pivot && !this->m_was_pivot);
+
+    T koef = this->m_data[rhs.m_pivot_index] / rhs.m_data[rhs.m_pivot_index];
+
+    for (size_t i = 0; i < m_data.size(); i++) {
+      m_data[i] -= koef * rhs.m_data[i];
+    }
+
+    m_sol -= koef * rhs.m_sol;
+
+    return *this;
   }
 
   Row &operator/=(const T &rhs) {
@@ -74,7 +92,7 @@ public:
     return true;
   }
 
-  // TODO: WRONG
+  // TODO: find maximum absolute value elemen.
   void calc_pivot() {
     m_pivot_index = std::distance(
         m_data.begin(), std::max_element(m_data.begin(), m_data.end()));

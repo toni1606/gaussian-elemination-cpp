@@ -10,12 +10,12 @@
 template <typename T> class Matrix {
 private:
   std::vector<Row<T>> m_rows;
-  size_t pivot_row_id;
+  size_t m_pivot_row_id;
 
 public:
   // Take for granted that the bounds checking was done before calling the
   // constructor. Meaning othe rows and cols are correct.
-  Matrix(std::istream &mat, std::istream &sol) : pivot_row_id(0) {
+  Matrix(std::istream &mat, std::istream &sol) : m_pivot_row_id(0) {
     std::string tmp_str;
 
     // Parse the size of the matrix.
@@ -36,6 +36,8 @@ public:
     }
 
     // Ignore the firs line, because it is the same as rows.
+    // And blank line.
+    std::getline(sol, tmp_str);
     std::getline(sol, tmp_str);
     for (size_t i = 0; std::getline(sol, tmp_str); i++) {
       m_rows[i].set_sol(tmp_str);
@@ -93,13 +95,13 @@ private:
   void select_pivot() {
     for (size_t i = 0; i < m_rows.size(); i++) {
       if (!m_rows[i].was_pivot() && m_rows[i] != 0) {
-        pivot_row_id = i;
+        m_pivot_row_id = i;
         break;
       }
     }
 
-    m_rows[pivot_row_id].is_now_pivot();
-    m_rows[pivot_row_id].calc_pivot();
+    m_rows[m_pivot_row_id].is_now_pivot();
+    m_rows[m_pivot_row_id].calc_pivot();
   }
 
   // Performs the elemination phase and returns if system is solvable.
@@ -108,7 +110,14 @@ private:
       select_pivot();
 
       // Set pivot to 1 (: pivot)
-      m_rows[pivot_row_id] /= m_rows[pivot_row_id].get();
+      m_rows[m_pivot_row_id] /= m_rows[m_pivot_row_id].get();
+
+      // Subtract the right amount from each row.
+      for (size_t i = m_pivot_row_id + 1; i < m_rows.size(); i++) {
+        m_rows[i] -= m_rows[m_pivot_row_id];
+      }
+
+      std::cout << *this << std::endl;
     }
 
     return !this->is_not_solvable();
