@@ -1,6 +1,7 @@
 #include "../headers/matrix.h"
 #include <fstream>
 #include <iostream>
+#include <ostream>
 
 int main(int argc, char *argv[]) {
   std::cout << "Hello, World\n" << std::endl;
@@ -21,11 +22,13 @@ int main(int argc, char *argv[]) {
   }
 
   // Get Linker Error
-  Matrix<int32_t> m(mat, sol);
+  Matrix<float> m(mat, sol);
 
-  std::cout << m;
+  std::cout << m << std::endl;
 
   m.rref();
+
+  std::cout << m;
 
   return EXIT_SUCCESS;
 }

@@ -47,6 +47,15 @@ public:
     m_sol += rhs.sol;
   }
 
+  Row &operator/=(const T &rhs) {
+    for (size_t i = 0; i < m_data.size(); ++i)
+      m_data[i] /= rhs;
+
+    m_sol /= rhs;
+
+    return *this;
+  }
+
   bool operator!=(const T rhs) {
     for (T &elem : m_data) {
       if (elem != rhs)
@@ -65,6 +74,7 @@ public:
     return true;
   }
 
+  // TODO: WRONG
   void calc_pivot() {
     m_pivot_index = std::distance(
         m_data.begin(), std::max_element(m_data.begin(), m_data.end()));

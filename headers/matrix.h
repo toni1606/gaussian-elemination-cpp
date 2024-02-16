@@ -106,7 +106,9 @@ private:
   bool elem() {
     while (!is_elem_over()) {
       select_pivot();
-      std::cout << m_rows[pivot_row_id].get();
+
+      // Set pivot to 1 (: pivot)
+      m_rows[pivot_row_id] /= m_rows[pivot_row_id].get();
     }
 
     return !this->is_not_solvable();
