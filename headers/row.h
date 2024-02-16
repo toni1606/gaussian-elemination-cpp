@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -64,9 +65,16 @@ public:
     return true;
   }
 
-  bool is_not_solvable() { return operator==(0) && m_sol != 0; }
+  void calc_pivot() {
+    m_pivot_index = std::distance(
+        m_data.begin(), std::max_element(m_data.begin(), m_data.end()));
+  }
 
+  T get() { return m_data[m_pivot_index]; }
+
+  bool is_not_solvable() { return operator==(0) && m_sol != 0; }
   bool was_pivot() { return m_was_pivot; }
+  void is_now_pivot() { m_was_pivot = true; }
 
   // TODO: Overload Mul and MulAssign
 

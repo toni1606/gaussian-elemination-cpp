@@ -1,5 +1,6 @@
 #include "row.h"
 #include <iostream>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -9,11 +10,12 @@
 template <typename T> class Matrix {
 private:
   std::vector<Row<T>> m_rows;
+  size_t pivot_row_id;
 
 public:
   // Take for granted that the bounds checking was done before calling the
   // constructor. Meaning othe rows and cols are correct.
-  Matrix(std::istream &mat, std::istream &sol) {
+  Matrix(std::istream &mat, std::istream &sol) : pivot_row_id(0) {
     std::string tmp_str;
 
     // Parse the size of the matrix.
@@ -88,9 +90,23 @@ private:
     return false;
   }
 
+  void select_pivot() {
+    for (size_t i = 0; i < m_rows.size(); i++) {
+      if (!m_rows[i].was_pivot() && m_rows[i] != 0) {
+        pivot_row_id = i;
+        break;
+      }
+    }
+
+    m_rows[pivot_row_id].is_now_pivot();
+    m_rows[pivot_row_id].calc_pivot();
+  }
+
   // Performs the elemination phase and returns if system is solvable.
   bool elem() {
     while (!is_elem_over()) {
+      select_pivot();
+      std::cout << m_rows[pivot_row_id].get();
     }
 
     return !this->is_not_solvable();
