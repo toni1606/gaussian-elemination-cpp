@@ -25,5 +25,7 @@ int main(int argc, char *argv[]) {
 
   std::cout << m;
 
+  m.rref();
+
   return EXIT_SUCCESS;
 }

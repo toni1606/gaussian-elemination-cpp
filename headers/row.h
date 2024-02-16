@@ -46,6 +46,28 @@ public:
     m_sol += rhs.sol;
   }
 
+  bool operator!=(const T rhs) {
+    for (T &elem : m_data) {
+      if (elem != rhs)
+        return true;
+    }
+
+    return false;
+  }
+
+  bool operator==(const T rhs) {
+    for (T &elem : m_data) {
+      if (elem != rhs)
+        return false;
+    }
+
+    return true;
+  }
+
+  bool is_not_solvable() { return operator==(0) && m_sol != 0; }
+
+  bool was_pivot() { return m_was_pivot; }
+
   // TODO: Overload Mul and MulAssign
 
 private:

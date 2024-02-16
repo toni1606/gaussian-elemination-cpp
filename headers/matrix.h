@@ -53,4 +53,48 @@ public:
 
     return os;
   }
+
+  bool operator!=(const T rhs) {
+    for (Row<T> &elem : m_rows) {
+      if (elem != rhs)
+        return true;
+    }
+
+    return false;
+  }
+
+  bool rref() {
+    if (!elem())
+      return false;
+    return backprop();
+  }
+
+private:
+  bool is_elem_over() {
+    for (auto &row : m_rows) {
+      if (!row.was_pivot() && row != 0)
+        return false;
+    }
+
+    return true;
+  }
+
+  bool is_not_solvable() {
+    for (auto &row : m_rows) {
+      if (row.is_not_solvable())
+        return true;
+    }
+
+    return false;
+  }
+
+  // Performs the elemination phase and returns if system is solvable.
+  bool elem() {
+    while (!is_elem_over()) {
+    }
+
+    return !this->is_not_solvable();
+  }
+
+  bool backprop() { return false; }
 };
