@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <iomanip>
+#include <ios>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -34,10 +36,14 @@ public:
   void set_sol(std::string sol) { this->m_sol = from_str(sol); }
 
   friend std::ostream &operator<<(std::ostream &os, Row const &row) {
-    for (auto &elem : row.m_data) {
+    os << std::fixed << std::setprecision(2) << ' ';
+
+    for (size_t i = 0; i < row.m_data.size(); i++) {
+      T elem = row.m_data[i];
+
       os << elem << "\t";
     }
-    return os << "|\t" << row.m_sol;
+    return os << "|  " << row.m_sol;
   }
 
   Row &operator+=(const Row &rhs) {
