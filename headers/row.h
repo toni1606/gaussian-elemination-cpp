@@ -35,6 +35,12 @@ public:
 
   void set_sol(std::string sol) { this->m_sol = from_str(sol); }
   size_t pivot_index() { return m_pivot_index; }
+  T sol() { return m_sol; }
+  T get_pivot() { return m_data[m_pivot_index]; }
+  T get(size_t i) { return m_data[i]; }
+  bool is_not_solvable() { return operator==(0) && m_sol != 0; }
+  bool was_pivot() { return m_was_pivot; }
+  void is_now_pivot() { m_was_pivot = true; }
 
   friend std::ostream &operator<<(std::ostream &os, Row const &row) {
     os << std::fixed << std::setprecision(2) << ' ';
@@ -106,12 +112,6 @@ public:
                                            return std::abs(a) < std::abs(b);
                                          }));
   }
-
-  T get() { return m_data[m_pivot_index]; }
-
-  bool is_not_solvable() { return operator==(0) && m_sol != 0; }
-  bool was_pivot() { return m_was_pivot; }
-  void is_now_pivot() { m_was_pivot = true; }
 
   // TODO: Overload Mul and MulAssign
 

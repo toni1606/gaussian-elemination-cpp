@@ -130,7 +130,7 @@ private:
       select_pivot();
 
       // Set pivot to 1 (: pivot)
-      m_rows[m_pivot_row_id] /= m_rows[m_pivot_row_id].get();
+      m_rows[m_pivot_row_id] /= m_rows[m_pivot_row_id].get_pivot();
 
       // Subtract the right amount from each row.
       for (size_t i = m_pivot_row_id + 1; i < m_rows.size(); i++) {
@@ -184,5 +184,13 @@ private:
     std::vector<size_t> free_variables = get_free_vars();
 
     std::cout << "The (affine) soultion space is given by the set" << std::endl;
+
+    for (auto &row : m_rows) {
+      std::cout << "{ (" << row.sol() << ")\t";
+      for (auto &f : free_variables) {
+        std::cout << "- mu_" << f << "(" << row.get(f) << ")\t";
+      }
+      std::cout << "}" << std::endl;
+    }
   }
 };
