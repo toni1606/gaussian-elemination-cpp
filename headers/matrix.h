@@ -185,6 +185,7 @@ private:
 
     std::cout << "The (affine) soultion space is given by the set" << std::endl;
 
+    // Print the particular solution - N* homogenous solutions.
     for (auto &row : m_rows) {
       std::cout << "{ (" << row.sol() << ")\t";
       for (auto &f : free_variables) {
