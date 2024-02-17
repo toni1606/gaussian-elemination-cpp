@@ -106,6 +106,8 @@ private:
 
   // Performs the elemination phase and returns if system is solvable.
   bool elem() {
+    std::cout << "Eleminationphase: " << std::endl << std::endl;
+
     while (!is_elem_over()) {
       select_pivot();
 
