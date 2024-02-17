@@ -70,7 +70,7 @@ public:
   bool rref() {
     if (!elem())
       return false;
-    return backprop();
+    return resub();
   }
 
 private:
@@ -104,6 +104,15 @@ private:
     m_rows[m_pivot_row_id].calc_pivot();
   }
 
+  size_t last_pivot() {
+    for (size_t i = m_rows.size() - 1; i < m_rows.size(); i--) {
+      if (m_rows[i].was_pivot())
+        return i;
+    }
+
+    assert(0 && "ERROR: Unreachable");
+  }
+
   // Performs the elemination phase and returns if system is solvable.
   bool elem() {
     std::cout << "Eleminationphase" << std::endl;
@@ -125,5 +134,20 @@ private:
     return !this->is_not_solvable();
   }
 
-  bool backprop() { return false; }
+  bool resub() {
+    std::cout << "Resubstitutionphase" << std::endl;
+
+    // Weird check because when 0 it underflows and i >= 0 is true.
+    for (size_t i = last_pivot(); i < m_rows.size(); i--) {
+
+      // Subtract the right amount from each row.
+      for (size_t j = 0; j < i; j++) {
+        m_rows[j] -= m_rows[i];
+      }
+
+      std::cout << *this << std::endl;
+    }
+
+    return true;
+  }
 };

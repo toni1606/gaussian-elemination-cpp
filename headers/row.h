@@ -59,7 +59,6 @@ public:
 
   Row &operator-=(const Row &rhs) {
     assert(m_data.size() == rhs.m_data.size());
-    assert(rhs.m_was_pivot && !this->m_was_pivot);
 
     T koef = this->m_data[rhs.m_pivot_index] / rhs.m_data[rhs.m_pivot_index];
 
