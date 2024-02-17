@@ -12,6 +12,8 @@ private:
   std::vector<Row<T>> m_rows;
   size_t m_pivot_row_id;
 
+  size_t cols;
+
 public:
   // Take for granted that the bounds checking was done before calling the
   // constructor. Meaning othe rows and cols are correct.
@@ -26,6 +28,8 @@ public:
     size_t cols;
 
     size >> rows >> cols;
+
+    this->cols = cols;
 
     m_rows.reserve(rows);
 
@@ -70,7 +74,12 @@ public:
   bool rref() {
     if (!elem())
       return false;
-    return resub();
+    if (!resub())
+      return false;
+
+    solution_space();
+
+    return true;
   }
 
 private:
@@ -149,5 +158,31 @@ private:
     }
 
     return true;
+  }
+
+  std::vector<size_t> get_free_vars() {
+    std::vector<size_t> vars;
+    for (size_t i = 0; i < cols; i++) {
+      bool flag = false;
+      for (auto &row : m_rows) {
+        if (i == row.pivot_index()) {
+          flag = true;
+          break;
+        }
+      }
+
+      if (!flag) {
+        vars.push_back(i);
+      }
+    }
+
+    return vars;
+  }
+
+  void solution_space() {
+    // Get free variables (column ids).
+    std::vector<size_t> free_variables = get_free_vars();
+
+    std::cout << "The (affine) soultion space is given by the set" << std::endl;
   }
 };

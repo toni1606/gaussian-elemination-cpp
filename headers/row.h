@@ -34,6 +34,7 @@ public:
   ~Row() = default;
 
   void set_sol(std::string sol) { this->m_sol = from_str(sol); }
+  size_t pivot_index() { return m_pivot_index; }
 
   friend std::ostream &operator<<(std::ostream &os, Row const &row) {
     os << std::fixed << std::setprecision(2) << ' ';
