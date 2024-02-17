@@ -22,9 +22,12 @@ int main(int argc, char *argv[]) {
   // Get Linker Error
   Matrix<float> m(mat, sol);
 
-  std::cout << m << std::endl;
+  std::cout << "Systemmatrix\n" << m << std::endl;
 
-  m.rref();
+  if (m.rref())
+    std::cout << "The system is solvable!" << std::endl;
+  else
+    std::cout << "The system is unsolvable!" << std::endl;
 
   // std::cout << m;
 
