@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -92,10 +93,12 @@ public:
     return true;
   }
 
-  // TODO: find maximum absolute value elemen.
   void calc_pivot() {
     m_pivot_index = std::distance(
-        m_data.begin(), std::max_element(m_data.begin(), m_data.end()));
+        m_data.begin(), std::max_element(m_data.begin(), m_data.end(),
+                                         [](const T &a, const T &b) {
+                                           return std::abs(a) < std::abs(b);
+                                         }));
   }
 
   T get() { return m_data[m_pivot_index]; }
