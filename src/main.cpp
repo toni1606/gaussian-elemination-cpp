@@ -1,3 +1,4 @@
+#include "../headers/fraction.h"
 #include "../headers/matrix.h"
 #include <fstream>
 #include <iostream>
@@ -19,8 +20,7 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  // Get Linker Error
-  Matrix<float> m(mat, sol);
+  Matrix<Fraction> m(mat, sol);
 
   std::cout << "Systemmatrix\n" << m << std::endl;
 
@@ -28,8 +28,6 @@ int main(int argc, char *argv[]) {
     std::cout << "The system is solvable!" << std::endl;
   else
     std::cout << "The system is unsolvable!" << std::endl;
-
-  // std::cout << m;
 
   return EXIT_SUCCESS;
 }

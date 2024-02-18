@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iomanip>
 #include <ios>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -112,8 +113,6 @@ public:
                                            return std::abs(a) < std::abs(b);
                                          }));
   }
-
-  // TODO: Overload Mul and MulAssign
 
 private:
   T from_str(std::string s) {
