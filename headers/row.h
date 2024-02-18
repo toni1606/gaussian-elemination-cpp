@@ -106,12 +106,29 @@ public:
     return true;
   }
 
+  bool operator!=(const int32_t rhs) {
+    for (T &elem : m_data) {
+      if (elem != rhs)
+        return false;
+    }
+
+    return true;
+  }
+
+  bool operator==(const int32_t rhs) {
+    for (T &elem : m_data) {
+      if (elem != rhs)
+        return false;
+    }
+
+    return true;
+  }
+
   void calc_pivot() {
     m_pivot_index = std::distance(
-        m_data.begin(), std::max_element(m_data.begin(), m_data.end(),
-                                         [](const T &a, const T &b) {
-                                           return std::abs(a) < std::abs(b);
-                                         }));
+        m_data.begin(),
+        std::max_element(m_data.begin(), m_data.end(),
+                         [](T &a, T &b) { return std::abs(a) < std::abs(b); }));
   }
 
 private:

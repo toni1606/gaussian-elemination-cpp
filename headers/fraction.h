@@ -13,8 +13,24 @@ public:
   Fraction &operator=(const Fraction &) = default;
   ~Fraction() = default;
 
+  operator double();
+
   friend std::ostream &operator<<(std::ostream &os, Fraction const &frac);
   friend std::istream &operator>>(std::istream &is, Fraction &frac);
+
+  Fraction &operator+=(const Fraction &rhs);
+  Fraction &operator-=(const Fraction &rhs);
+
+  Fraction &operator/=(const Fraction &rhs);
+  Fraction &operator/(const Fraction &rhs);
+
+  Fraction &operator*(const Fraction &rhs);
+
+  bool operator!=(const Fraction &rhs);
+  bool operator==(const Fraction &rhs);
+
+  bool operator!=(const int32_t &rhs);
+  bool operator==(const int32_t &rhs);
 
 private:
   int32_t m_nom;
