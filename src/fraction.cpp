@@ -6,7 +6,12 @@ Fraction::Fraction(int32_t nom, int32_t den) : m_nom(nom), m_den(den) {}
 Fraction::operator double() { return ((double)m_nom) / ((double)m_den); }
 
 std::ostream &operator<<(std::ostream &os, Fraction const &frac) {
-  os << frac.m_nom << '/' << frac.m_den;
+  if (frac.m_nom == 0)
+    os << '0';
+  else if (frac.m_nom == frac.m_den)
+    os << frac.m_nom / frac.m_den;
+  else
+    os << frac.m_nom << '/' << frac.m_den;
 
   return os;
 }
@@ -26,6 +31,15 @@ std::istream &operator>>(std::istream &is, Fraction &frac) {
 
 // Implement adding (gcd).
 Fraction &Fraction::operator+=(const Fraction &rhs) {
+  if (m_nom == 0) {
+    m_nom = rhs.m_nom;
+    m_den = rhs.m_den;
+
+    return *this;
+  } else if (rhs.m_nom == 0) {
+    return *this;
+  }
+
   int32_t lcm = Fraction::lcm(this->m_den, rhs.m_den);
 
   this->m_nom *= lcm / this->m_den;
@@ -40,6 +54,15 @@ Fraction &Fraction::operator+=(const Fraction &rhs) {
 }
 
 Fraction &Fraction::operator-=(const Fraction &rhs) {
+  if (m_nom == 0) {
+    m_nom = rhs.m_nom;
+    m_den = rhs.m_den;
+
+    return *this;
+  } else if (rhs.m_nom == 0) {
+    return *this;
+  }
+
   int32_t lcm = Fraction::lcm(this->m_den, rhs.m_den);
 
   this->m_nom *= lcm / this->m_den;
