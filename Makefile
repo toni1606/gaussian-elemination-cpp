@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall -pedantic -Werror -O3 -std=c++17
+CFLAGS=-Wall -pedantic -Werror -std=c++17 -g
 LDFLAGS=-lm
 
 SRCDIR=src

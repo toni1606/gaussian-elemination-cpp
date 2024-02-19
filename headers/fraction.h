@@ -35,6 +35,7 @@ public:
 private:
   static int32_t gcd(int32_t a, int32_t b);
   static int32_t lcm(int32_t a, int32_t b);
+  void simplify();
 
 private:
   int32_t m_nom;

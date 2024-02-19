@@ -37,6 +37,7 @@ Fraction &Fraction::operator+=(const Fraction &rhs) {
 
   this->m_nom += nom;
 
+  this->simplify();
   return *this;
 }
 
@@ -50,6 +51,7 @@ Fraction &Fraction::operator-=(const Fraction &rhs) {
 
   this->m_nom -= nom;
 
+  this->simplify();
   return *this;
 }
 
@@ -57,6 +59,7 @@ Fraction &Fraction::operator/=(const Fraction &rhs) {
   this->m_nom *= rhs.m_den;
   this->m_den *= rhs.m_nom;
 
+  this->simplify();
   return *this;
 }
 
@@ -64,6 +67,7 @@ Fraction &Fraction::operator/(const Fraction &rhs) {
   this->m_nom *= rhs.m_den;
   this->m_den *= rhs.m_nom;
 
+  this->simplify();
   return *this;
 }
 
@@ -71,17 +75,23 @@ Fraction &Fraction::operator*(const Fraction &rhs) {
   this->m_nom *= rhs.m_nom;
   this->m_den *= rhs.m_den;
 
+  this->simplify();
   return *this;
 }
 
 bool Fraction::operator!=(const Fraction &rhs) { return !(*this == rhs); }
 
+// Implement == using cross multiplication
 bool Fraction::operator==(const Fraction &rhs) {
-  return m_nom == rhs.m_nom && m_den == rhs.m_den;
+  return (this->m_nom * rhs.m_den) == (this->m_den * rhs.m_nom);
 }
 
-bool Fraction::operator!=(const int32_t &rhs) { return m_nom != rhs; }
-bool Fraction::operator==(const int32_t &rhs) { return m_nom == rhs; }
+bool Fraction::operator!=(const int32_t &rhs) {
+  return *this != Fraction(rhs, 1);
+}
+bool Fraction::operator==(const int32_t &rhs) {
+  return *this == Fraction(rhs, 1);
+}
 
 int32_t Fraction::gcd(int32_t a, int32_t b) {
   if (a == 0)
@@ -92,4 +102,11 @@ int32_t Fraction::gcd(int32_t a, int32_t b) {
 
 int32_t Fraction::lcm(int32_t a, int32_t b) {
   return std::abs(a) * (std::abs(b) / Fraction::gcd(a, b));
+}
+
+void Fraction::simplify() {
+  int32_t gcd = Fraction::gcd(m_nom, m_den);
+
+  m_nom /= gcd;
+  m_den /= gcd;
 }

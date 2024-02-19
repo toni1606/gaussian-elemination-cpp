@@ -109,10 +109,10 @@ public:
   bool operator!=(const int32_t rhs) {
     for (T &elem : m_data) {
       if (elem != rhs)
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
   }
 
   bool operator==(const int32_t rhs) {
