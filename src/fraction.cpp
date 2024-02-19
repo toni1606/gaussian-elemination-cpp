@@ -18,7 +18,10 @@ std::istream &operator>>(std::istream &is, Fraction &frac) {
   std::getline(is, tmp, '/');
 
   frac.m_nom = std::stoi(tmp);
-  is >> frac.m_den;
+
+  // If there was no '/' so the number is a decimal/int set den to 1.
+  if (!(is >> frac.m_den))
+    frac.m_den = 1;
 
   return is;
 }
