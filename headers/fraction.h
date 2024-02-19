@@ -33,6 +33,10 @@ public:
   bool operator==(const int32_t &rhs);
 
 private:
+  static int32_t gcd(int32_t a, int32_t b);
+  static int32_t lcm(int32_t a, int32_t b);
+
+private:
   int32_t m_nom;
   int32_t m_den;
 };

@@ -27,8 +27,31 @@ std::istream &operator>>(std::istream &is, Fraction &frac) {
 }
 
 // Implement adding (gcd).
-Fraction &Fraction::operator+=(const Fraction &rhs) { return *this; }
-Fraction &Fraction::operator-=(const Fraction &rhs) { return *this; }
+Fraction &Fraction::operator+=(const Fraction &rhs) {
+  int32_t lcm = Fraction::lcm(this->m_den, rhs.m_den);
+
+  this->m_nom *= lcm / this->m_den;
+  this->m_den = lcm;
+
+  int32_t nom = (lcm / rhs.m_den) * rhs.m_nom;
+
+  this->m_nom += nom;
+
+  return *this;
+}
+
+Fraction &Fraction::operator-=(const Fraction &rhs) {
+  int32_t lcm = Fraction::lcm(this->m_den, rhs.m_den);
+
+  this->m_nom *= lcm / this->m_den;
+  this->m_den = lcm;
+
+  int32_t nom = (lcm / rhs.m_den) * rhs.m_nom;
+
+  this->m_nom -= nom;
+
+  return *this;
+}
 
 Fraction &Fraction::operator/=(const Fraction &rhs) {
   this->m_nom *= rhs.m_den;
@@ -59,3 +82,14 @@ bool Fraction::operator==(const Fraction &rhs) {
 
 bool Fraction::operator!=(const int32_t &rhs) { return m_nom != rhs; }
 bool Fraction::operator==(const int32_t &rhs) { return m_nom == rhs; }
+
+int32_t Fraction::gcd(int32_t a, int32_t b) {
+  if (a == 0)
+    return b;
+
+  return gcd(a % b, a);
+}
+
+int32_t Fraction::lcm(int32_t a, int32_t b) {
+  return std::abs(a) * (std::abs(b) / Fraction::gcd(a, b));
+}
