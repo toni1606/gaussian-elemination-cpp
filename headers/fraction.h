@@ -24,9 +24,10 @@ public:
   Fraction &operator-=(const Fraction &rhs);
 
   Fraction &operator/=(const Fraction &rhs);
-  Fraction &operator/(const Fraction &rhs);
+  Fraction operator/(const Fraction &rhs);
 
-  Fraction &operator*(const Fraction &rhs);
+  Fraction &operator*=(const Fraction &rhs);
+  Fraction operator*(const Fraction &rhs);
 
   bool operator!=(const Fraction &rhs);
   bool operator==(const Fraction &rhs);

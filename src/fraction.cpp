@@ -61,20 +61,29 @@ Fraction &Fraction::operator/=(const Fraction &rhs) {
   return *this;
 }
 
-Fraction &Fraction::operator/(const Fraction &rhs) {
-  this->m_nom *= rhs.m_den;
-  this->m_den *= rhs.m_nom;
+Fraction Fraction::operator/(const Fraction &rhs) {
+  Fraction tmp = *this;
+  tmp /= rhs;
 
-  this->simplify();
-  return *this;
+  return tmp;
 }
 
-Fraction &Fraction::operator*(const Fraction &rhs) {
+Fraction &Fraction::operator*=(const Fraction &rhs) {
   this->m_nom *= rhs.m_nom;
   this->m_den *= rhs.m_den;
 
   this->simplify();
   return *this;
+}
+
+Fraction Fraction::operator*(const Fraction &rhs) {
+  Fraction tmp = *this;
+  tmp.m_nom *= rhs.m_nom;
+  tmp.m_den *= rhs.m_den;
+
+  tmp *= rhs;
+
+  return tmp;
 }
 
 bool Fraction::operator!=(const Fraction &rhs) { return !(*this == rhs); }
