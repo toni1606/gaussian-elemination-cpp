@@ -1,6 +1,4 @@
 #include "../headers/fraction.h"
-#include <iostream>
-#include <string>
 
 Fraction::Fraction() : m_nom(0), m_den(0) {}
 Fraction::Fraction(int32_t nom, int32_t den) : m_nom(nom), m_den(den) {}
@@ -97,7 +95,7 @@ int32_t Fraction::gcd(int32_t a, int32_t b) {
   if (a == 0)
     return b;
 
-  return gcd(a % b, a);
+  return gcd(b % a, a);
 }
 
 int32_t Fraction::lcm(int32_t a, int32_t b) {
@@ -106,6 +104,8 @@ int32_t Fraction::lcm(int32_t a, int32_t b) {
 
 void Fraction::simplify() {
   int32_t gcd = Fraction::gcd(m_nom, m_den);
+
+  assert(gcd != 0);
 
   m_nom /= gcd;
   m_den /= gcd;

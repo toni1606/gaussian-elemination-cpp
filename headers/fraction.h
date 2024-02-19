@@ -1,4 +1,6 @@
+#include <cassert>
 #include <cstdint>
+#include <iostream>
 #include <ostream>
 
 #pragma once
