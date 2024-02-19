@@ -127,7 +127,9 @@ int32_t Fraction::gcd(int32_t a, int32_t b) {
   if (a == 0)
     return b;
 
-  return gcd(b % a, a);
+  int32_t max = std::max(std::abs(a), std::abs(b));
+  int32_t min = std::min(std::abs(a), std::abs(b));
+  return gcd(max % min, min);
 }
 
 int32_t Fraction::lcm(int32_t a, int32_t b) {
