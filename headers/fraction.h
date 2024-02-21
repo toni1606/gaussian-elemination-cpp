@@ -1,3 +1,4 @@
+#include "../headers/error.h"
 #include <cassert>
 #include <cstdint>
 #include <iostream>
