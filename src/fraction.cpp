@@ -104,8 +104,6 @@ Fraction Fraction::operator*(const Fraction &rhs) {
   tmp.m_nom *= rhs.m_nom;
   tmp.m_den *= rhs.m_den;
 
-  tmp *= rhs;
-
   return tmp;
 }
 
