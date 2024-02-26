@@ -1,3 +1,4 @@
+#include "../headers/cyclic_group.h"
 #include "../headers/fraction.h"
 #include "../headers/matrix.h"
 #include <fstream>
@@ -42,6 +43,8 @@ int main(int argc, char *argv[]) {
   if (run<Fraction>(mat, sol) == EXIT_SUCCESS) {
     return EXIT_SUCCESS;
   } else if (run<double>(mat, sol) == EXIT_SUCCESS) {
+    return EXIT_SUCCESS;
+  } else if (run<CyclicGroup>(mat, sol) == EXIT_SUCCESS) {
     return EXIT_SUCCESS;
   }
 

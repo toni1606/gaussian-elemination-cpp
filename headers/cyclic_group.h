@@ -9,7 +9,7 @@
 class CyclicGroup {
 public:
   CyclicGroup();
-  CyclicGroup(int32_t m_num, uint32_t m_p);
+  CyclicGroup(int32_t m_num, int32_t m_p);
   CyclicGroup(CyclicGroup &&) = default;
   CyclicGroup(const CyclicGroup &) = default;
   CyclicGroup &operator=(CyclicGroup &&) = default;
@@ -18,8 +18,8 @@ public:
 
   operator double();
 
-  friend std::ostream &operator<<(std::ostream &os, CyclicGroup const &frac);
-  friend std::istream &operator>>(std::istream &is, CyclicGroup &frac);
+  friend std::ostream &operator<<(std::ostream &os, CyclicGroup const &cyc);
+  friend std::istream &operator>>(std::istream &is, CyclicGroup &cyc);
 
   CyclicGroup &operator+=(const CyclicGroup &rhs);
   CyclicGroup &operator-=(const CyclicGroup &rhs);
@@ -37,11 +37,6 @@ public:
   bool operator==(const int32_t &rhs);
 
 private:
-  static int32_t gcd(int32_t a, int32_t b);
-  static int32_t lcm(int32_t a, int32_t b);
-  void simplify();
-
-private:
   int32_t m_num;
-  uint32_t m_p;
+  int32_t m_p;
 };
