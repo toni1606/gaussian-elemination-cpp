@@ -34,3 +34,15 @@ std::istream &operator>>(std::istream &is, CyclicGroup &cyc) {
 
   return is;
 }
+
+CyclicGroup &CyclicGroup::operator+=(const CyclicGroup &rhs) {
+  m_num = (m_num + rhs.m_num) % m_p;
+
+  return *this;
+}
+
+CyclicGroup &CyclicGroup::operator-=(const CyclicGroup &rhs) {
+  m_num = (m_num - rhs.m_num) % m_p;
+
+  return *this;
+}
