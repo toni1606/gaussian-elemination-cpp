@@ -17,6 +17,8 @@ template <typename T> int run(std::ifstream &mat, std::ifstream &sol) {
 
     return EXIT_SUCCESS;
   } catch (...) {
+    mat.clear();
+    mat.seekg(0);
     return EXIT_FAILURE;
   }
 }
